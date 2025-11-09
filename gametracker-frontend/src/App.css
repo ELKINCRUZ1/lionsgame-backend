@@ -1,0 +1,43 @@
+body {
+  font-family: sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+h1, h2, h3 {
+  color: #333;
+}
+
+form {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+input, textarea {
+  margin: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 8px 12px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.juegos-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.juego-card {
+  background-color: #fff;
+  border: 1px solid #7e0000;
+  padding: 15px;
+  width: 250px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+}
