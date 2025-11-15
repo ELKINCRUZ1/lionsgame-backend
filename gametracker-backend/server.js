@@ -7,9 +7,8 @@ const cors = require('cors');
 // Importación de las Rutas 
 const resenasRoutes = require('./routes/resenas');
 const juegosRoutes = require('./routes/juegos'); 
-
-// --- ¡LA LÍNEA CORREGIDA ESTÁ AQUÍ! ---
-// Usa tu nuevo cluster, tu usuario, tu contraseña, y el nombre de la DB (ELKINCRUZ1)
+//  --- ---
+// Use tu nuevo cluster de MongoDB Atlas 
 const MONGO_URI_DEFAULT = "mongodb+srv://kinscruz833_db_user:kinscruz833@cluster0.ooosbzy.mongodb.net/ELKINCRUZ1?appName=Cluster0"; 
 // --- ---
 
@@ -26,7 +25,7 @@ app.use('/api/resenas', resenasRoutes);
 // 4. Conexión a MongoDB
 const connectDB = async () => {
     try {
-        // Usamos la variable de entorno (si existe) o la que definimos arriba
+    
         await mongoose.connect(process.env.MONGO_URI || MONGO_URI_DEFAULT);
         console.log('✅ MongoDB Atlas conectado exitosamente.');
     } catch (error) {
