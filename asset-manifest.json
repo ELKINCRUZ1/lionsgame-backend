@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/lionsgame-frontend/static/css/main.2de9bab6.css",
+    "main.js": "/lionsgame-frontend/static/js/main.66b34139.js",
+    "index.html": "/lionsgame-frontend/index.html",
+    "main.2de9bab6.css.map": "/lionsgame-frontend/static/css/main.2de9bab6.css.map",
+    "main.66b34139.js.map": "/lionsgame-frontend/static/js/main.66b34139.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2de9bab6.css",
+    "static/js/main.66b34139.js"
+  ]
+}
