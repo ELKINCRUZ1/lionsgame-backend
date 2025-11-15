@@ -1,41 +1,62 @@
 /* src/pages/BibliotecaJuegos/BibliotecaJuegos.css */
 
-.biblioteca-juegos-container {
-    padding: 2rem 0; 
-}
-
-.biblioteca-juegos-header {
+/* Estilos del Encabezado (Buscador y Botones) */
+.biblioteca-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
     padding: 0 1rem;
+    flex-wrap: wrap; 
+    gap: 1.5rem;
 }
 
-/* --- ¡EL FIX FINAL! ESTILO MASONRY (TETRIS) --- */
+.biblioteca-header h1 {
+    font-size: 1.5rem;
+    color: var(--amarillo);
+    text-shadow: 2px 2px var(--naranja);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* ESTILO DEL INPUT */
+.buscador-input {
+    font-family: 'Press Start 2P', cursive;
+    background-color: var(--blanco);
+    color: var(--negro-pixel);
+    border: 3px solid var(--negro-pixel);
+    padding: 10px 15px;
+    font-size: 0.8rem;
+    box-shadow: 3px 3px 0px var(--negro-pixel);
+    border-radius: 0;
+    width: 350px; 
+    max-width: 100%;
+}
+
+/* --- EL MOTOR MASONRY (TETRIS) --- */
 .biblioteca-grid {
-    /* Usamos CSS Columns para lograr el efecto Masonry */
+    /* Usamos CSS Columns para el apilamiento irregular */
     columns: 3; 
-    column-gap: 2rem; /* El espacio entre las columnas */
+    column-gap: 2rem; 
     padding: 2rem 1rem;
-    width: 100%;
+    width: 100%; 
 }
 
-/* Regla para que cada tarjeta se apile verticalmente dentro de su columna */
+/* Regla crucial para que cada tarjeta se apile correctamente */
 .tarjeta-juego {
-    display: inline-block; /* Crucial para el apilamiento Masonry */
-    width: 100%; /* Ocupa el ancho completo de su columna */
-    margin-bottom: 2rem; /* Espacio entre las tarjetas en la misma columna */
+    display: inline-block; 
+    width: 100%; 
+    margin-bottom: 2rem; /* Espacio entre las tarjetas apiladas */
 }
 
-/* Para tablets: 2 columnas */
+/* Media Queries para Tablets y Móviles */
 @media (max-width: 1100px) {
     .biblioteca-grid {
         columns: 2;
     }
 }
-
-/* Para móvil: 1 columna */
 @media (max-width: 600px) {
     .biblioteca-grid {
         columns: 1;

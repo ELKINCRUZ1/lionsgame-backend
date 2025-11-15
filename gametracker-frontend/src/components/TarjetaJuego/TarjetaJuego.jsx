@@ -1,9 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { eliminarJuego, actualizarJuego } from '../../services/juegoServices.js';
-import './TarjetaJuego.css'; 
+import './TarjetaJuego.css'; // El CSS pixel
 
-const TarjetaJuego = ({ juego, onJuegoEliminado, onJuegoActualizado }) => {
+// Las props de colorIndex y onJuegoActualizado ya no se usan
+const TarjetaJuego = ({ juego, onRefresh }) => { 
     const navigate = useNavigate();
 
     const handleEditar = () => {
@@ -18,7 +19,7 @@ const TarjetaJuego = ({ juego, onJuegoEliminado, onJuegoActualizado }) => {
         if (window.confirm(`¿Estás seguro de que quieres eliminar "${juego.titulo}"?`)) {
             try {
                 await eliminarJuego(juego._id);
-                onJuegoEliminado(juego._id);
+                onRefresh(); 
             } catch (error) {
                 console.error("Error al eliminar el juego", error);
             }
@@ -28,8 +29,8 @@ const TarjetaJuego = ({ juego, onJuegoEliminado, onJuegoActualizado }) => {
     const handleToggleCompletado = async () => {
         try {
             const datosUpdate = { completado: !juego.completado };
-            const juegoActualizado = await actualizarJuego(juego._id, datosUpdate);
-            onJuegoActualizado(juegoActualizado);
+            await actualizarJuego(juego._id, datosUpdate);
+            onRefresh(); 
         } catch (error) {
             console.error("Error al actualizar estado 'completado'", error);
         }
@@ -37,6 +38,7 @@ const TarjetaJuego = ({ juego, onJuegoEliminado, onJuegoActualizado }) => {
 
 
     return (
+        // El fondo ahora es fijo y se define en el CSS
         <div className="tarjeta-juego">
             
             <img 
@@ -58,17 +60,12 @@ const TarjetaJuego = ({ juego, onJuegoEliminado, onJuegoActualizado }) => {
                 </button>
             </div>
 
-            {/* --- FILA 1: Botones Pequeños (Editar y Eliminar) --- */}
-            <div className="tarjeta-juego-acciones-pequenas"> 
+            <div className="tarjeta-juego-acciones-pequenas">
                 <button onClick={handleEditar} className="btn-editar">✏️ Editar</button>
                 <button onClick={handleEliminar} className="btn-eliminar">🗑️ Eliminar</button>
             </div>
             
-            {/* --- FILA 2: Botón GRANDE (Reseñas) --- */}
-            <button onClick={handleVerResenas} className="btn-resenas-grande">
-                ⭐ Ver Reseñas
-            </button>
-            
+            <button onClick={handleVerResenas} className="btn-resenas-grande">⭐ Reseñas</button>
         </div>
     );
 };

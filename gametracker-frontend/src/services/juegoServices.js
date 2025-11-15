@@ -1,5 +1,5 @@
 // USA LA URL COMPLETA DEL BACKEND
-const API_URL = 'http://localhost:4000/api/juegos'; 
+const API_URL = '/api/juegos';
 
 export const getTodosLosJuegos = async () => {
     const response = await fetch(API_URL);

@@ -1,6 +1,5 @@
 // USA LA URL COMPLETA DEL BACKEND
-const API_URL = 'http://localhost:4000/api/resenas';
-
+const API_URL = '/api/resenas';
 export const getResenasPorJuego = async (juegoId) => {
     const response = await fetch(`${API_URL}/juego/${juegoId}`);
     if (!response.ok) {

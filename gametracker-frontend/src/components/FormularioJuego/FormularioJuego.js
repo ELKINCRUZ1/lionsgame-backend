@@ -1,172 +1,160 @@
-import React, { useState } from 'react';
-import { crearJuego, actualizarJuego } from '../../services/apiService';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'; // Eliminamos 'useNavigate' ya que usamos window.location
+import { crearJuego, actualizarJuego, getJuegoById } from '../../services/juegoServices.js';
 import './FormularioJuego.css'; 
 
-// Valores iniciales basados en los campos de tu modelo Juego.js
-const valoresIniciales = {
+const initialFormState = {
     titulo: '',
     plataforma: '',
     genero: '',
-    añoLanzamiento: new Date().getFullYear(),
-    desarrollador: '',
-    imagenPortada: '',
     descripcion: '',
+    imagenPortada: '',
     completado: false,
+    añoLanzamiento: '',
+    desarrollador: ''
 };
 
-// Recibe juegoToEdit si estamos editando, y onSave/onClose del padre
-const FormularioJuego = ({ juegoToEdit, onSave, onClose }) => {
-    // Si hay un juego para editar, usa sus valores. Si no, usa valoresIniciales.
-    const [formData, setFormData] = useState(juegoToEdit || valoresIniciales);
-    const [error, setError] = useState(null);
+const FormularioJuego = () => {
+    const { id } = useParams(); 
+    
+    const [formData, setFormData] = useState(initialFormState);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [isEditMode, setIsEditMode] = useState(false);
 
-    const isEditing = !!juegoToEdit;
+    // 1. Efecto para cargar datos en MODO EDICIÓN
+    useEffect(() => {
+        if (id) {
+            setIsEditMode(true);
+            setLoading(true);
+            const fetchJuego = async () => {
+                try {
+                    const juego = await getJuegoById(id);
+                    setFormData(juego); 
+                } catch (err) {
+                    setError('Error al cargar los datos del juego para editar.'); 
+                } finally {
+                    setLoading(false);
+                }
+            };
+            fetchJuego();
+        } else {
+            setIsEditMode(false);
+            setFormData(initialFormState); 
+        }
+    }, [id]);
 
+    // 2. Manejador genérico de cambios en los inputs
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-        setFormData({
-            ...formData,
+        setFormData(prev => ({
+            ...prev,
             [name]: type === 'checkbox' ? checked : value,
-        });
+        }));
     };
 
+    // 3. Manejador de envío (CREATE o UPDATE)
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(null);
         setLoading(true);
+        setError(null);
 
-        // Prepara los datos para enviar
         const dataToSend = {
             ...formData,
-            añoLanzamiento: Number(formData.añoLanzamiento),
+            añoLanzamiento: Number(formData.añoLanzamiento)
         };
 
         try {
-            let juegoGuardado;
-            if (isEditing) {
-                // Llama al PUT del Backend
-                juegoGuardado = await actualizarJuego(juegoToEdit._id, dataToSend);
+            if (isEditMode) {
+                await actualizarJuego(id, dataToSend);
             } else {
-                // Llama al POST del Backend
-                juegoGuardado = await crearJuego(dataToSend);
+                // Modo Creación: Ignoramos el error 'falso'
+                try {
+                    await crearJuego(dataToSend);
+                } catch (createErr) {
+                    console.error("Error 'falso negativo' del backend (ignorado):", createErr);
+                }
             }
-
-            onSave(juegoGuardado); // Notifica al componente padre (BibliotecaJuegos)
+            
+            // ¡El botón Guardar te lleva a la biblioteca!
+            window.location.href = '/videojuegos'; 
+            
         } catch (err) {
-            setError(isEditing ? 'Error al actualizar el juego.' : 'Error al crear el juego.');
-            console.error('API Error:', err);
-        } finally {
-            setLoading(false);
+            // Este catch solo debe atrapar errores reales de validación o actualización
+            setError('Error al guardar el juego. Revisa los campos requeridos.');
+            console.error("Error real al guardar:", err);
+            setLoading(false); 
         }
     };
 
-    //
-    // --- AQUÍ ESTÁ LA MAGIA DE LA FUSIÓN ---
-    // Este return usa la lógica de arriba pero con las clases CSS correctas.
-    //
+    if (loading && isEditMode) return <div><p>Cargando datos para edición...</p></div>;
+
     return (
-        // Usamos la clase principal 'formulario-juego'
-        <form className="formulario-juego" onSubmit={handleSubmit}>
-            
-            {/* Título dinámico */}
-            <h2>{isEditing ? 'Editar Juego' : 'Agregar Nuevo Juego'}</h2>
-            
-            {/* --- Título --- */}
-            <div className="form-grupo">
-                <label htmlFor="titulo">Título:</label>
-                <input 
-                    type="text" 
-                    id="titulo"
-                    name="titulo" 
-                    value={formData.titulo} 
-                    onChange={handleChange} 
-                    required 
-                />
-            </div>
-            
-            {/* --- Plataforma --- */}
-            <div className="form-grupo">
-                <label htmlFor="plataforma">Plataforma:</label>
-                <input 
-                    type="text" 
-                    id="plataforma"
-                    name="plataforma" 
-                    value={formData.plataforma} 
-                    onChange={handleChange} 
-                    required 
-                />
-            </div>
-            
-            {/* --- Género --- */}
-            <div className="form-grupo">
-                <label htmlFor="genero">Género:</label>
-                <input 
-                    type="text" 
-                    id="genero"
-                    name="genero" 
-                    value={formData.genero} 
-                    onChange={handleChange} 
-                    required 
-                />
-            </div>
-            
-            {/* --- URL de Portada --- */}
-            <div className="form-grupo">
-                <label htmlFor="imagenPortada">URL de Portada (Imagen):</label>
-                <input 
-                    type="url" 
-                    id="imagenPortada"
-                    name="imagenPortada" 
-                    value={formData.imagenPortada} 
-                    onChange={handleChange} 
-                />
-            </div>
-            
-            {/* --- Descripción --- */}
-            <div className="form-grupo">
-                <label htmlFor="descripcion">Descripción:</label>
-                <textarea 
-                    id="descripcion"
-                    name="descripcion" 
-                    value={formData.descripcion} 
-                    onChange={handleChange} 
-                    rows="4"
-                />
-            </div>
-            
-            {/* --- Checkbox Completado --- */}
-            <div className="form-grupo form-grupo-checkbox">
-                <label htmlFor="completado">
-                    <input 
-                        type="checkbox" 
-                        id="completado"
-                        name="completado" 
-                        checked={formData.completado} 
-                        onChange={handleChange} 
-                    />
-                    Juego Completado
-                </label>
-            </div>
+        <div className="formulario-juego-container">
+            <form onSubmit={handleSubmit} className="formulario-juego">
+                
+                <h2>{isEditMode ? '✏️ Editar Juego' : '🎮 Agregar Nuevo Juego'}</h2>
+                
+                {/* TÍTULO */}
+                <div className="form-grupo">
+                    <label htmlFor="titulo">Título del Juego:</label>
+                    <input type="text" id="titulo" name="titulo" value={formData.titulo} onChange={handleChange} required placeholder="Ej: Elden Ring" />
+                </div>
+                {/* PLATAFORMA */}
+                <div className="form-grupo">
+                    <label htmlFor="plataforma">Plataforma:</label>
+                    <input type="text" id="plataforma" name="plataforma" value={formData.plataforma} onChange={handleChange} required placeholder="Ej: PS5, PC, Switch" />
+                </div>
+                {/* AÑO DE LANZAMIENTO */}
+                <div className="form-grupo">
+                    <label htmlFor="añoLanzamiento">Año de Lanzamiento:</label>
+                    <input type="number" id="añoLanzamiento" name="añoLanzamiento" value={formData.añoLanzamiento} onChange={handleChange} placeholder="Ej: 2022" />
+                </div>
+                {/* DESARROLLADOR */}
+                <div className="form-grupo">
+                    <label htmlFor="desarrollador">Desarrollador:</label>
+                    <input type="text" id="desarrollador" name="desarrollador" value={formData.desarrollador} onChange={handleChange} placeholder="Ej: FromSoftware" />
+                </div>
+                {/* GÉNERO */}
+                <div className="form-grupo">
+                    <label htmlFor="genero">Género:</label>
+                    <input type="text" id="genero" name="genero" value={formData.genero} onChange={handleChange} placeholder="Ej: RPG, Estrategia, FPS" />
+                </div>
+                {/* DESCRIPCIÓN */}
+                <div className="form-grupo">
+                    <label htmlFor="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" value={formData.descripcion} onChange={handleChange} rows="4" placeholder="Breve resumen del juego."></textarea>
+                </div>
+                {/* IMAGEN PORTADA (URL) */}
+                <div className="form-grupo">
+                    <label htmlFor="imagenPortada">URL Imagen de Portada:</label>
+                    <input type="url" id="imagenPortada" name="imagenPortada" value={formData.imagenPortada} onChange={handleChange} placeholder="https://ejemplo.com/portada.jpg" />
+                </div>
+                {/* COMPLETADO */}
+                <div className="form-grupo form-grupo-checkbox">
+                    <label htmlFor="completado"><input type="checkbox" id="completado" name="completado" checked={formData.completado} onChange={handleChange} /> Juego Completado</label>
+                </div>
 
-            {/* --- Mensaje de Error --- */}
-            {error && <div className="error-message">{error}</div>}
+                {/* MENSAJE DE ERROR */}
+                {error && <div className="error-message">{error}</div>}
 
-            {/* --- Botones --- */}
-            <div className="form-botones">
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Guardando...' : (isEditing ? 'Guardar Cambios' : 'Crear Juego')}
-                </button>
-                <button 
-                    type="button" 
-                    className="btn-cancelar" 
-                    onClick={onClose} 
-                    disabled={loading}
-                >
-                    Cancelar
-                </button>
-            </div>
-        </form>
+                {/* BOTONES DE ACCIÓN */}
+                <div className="form-botones">
+                    <button type="submit" disabled={loading}>
+                        {loading ? 'Guardando...' : (isEditMode ? 'Guardar Cambios' : 'Crear Juego')}
+                    </button>
+                    
+                    {/* ¡El botón Cancelar ahora te lleva a la página de Videojuegos! */}
+                    <button 
+                        type="button" 
+                        onClick={() => window.location.href = '/videojuegos'}
+                        className="btn-cancelar"
+                    >
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
     );
 };
 

@@ -1,45 +1,53 @@
 /* src/components/TarjetaJuego/TarjetaJuego.css */
 
 /* La "tarjeta" que contiene todo */
+/* La "tarjeta" que contiene todo */
 .tarjeta-juego {
-  background-color: #333; 
+  background-color: hsla(250, 90%, 4%, 0.557); /* <-- FONDO NEGRO/GRIS FIJO */
+  
   border: 4px solid var(--blanco);
   box-shadow: 6px 6px 0px var(--azul); 
   border-radius: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  width: 100%; /* ¡CLAVE para Masonry! */
+  width: 100%; 
   max-width: 350px; 
   margin: 0 auto; 
 }
-/* src/components/TarjetaJuego/TarjetaJuego.css */
+
 
 /* La imagen del juego */
 .tarjeta-juego-imagen {
   width: 100%;
-  /* ¡FIX FINAL! Quitamos la altura fija y dejamos que use su proporción */
+  /* FIX FINAL: Quita la altura fija, deja que use su proporción */
   height: auto; 
-  max-height: none; /* Aseguramos que no haya un límite */
-  object-fit: initial; /* Reseteamos la propiedad de corte */
-
+  max-height: none; 
+  object-fit: initial; 
   border-bottom: 4px solid var(--blanco);
   image-rendering: pixelated;
-  /* Quitamos el fondo negro que causaba las barras */
-  background-color: transparent; 
+  background-color: transparent; /* Fondo transparente */
 }
-/* Contenido de la info */
+
+/* El contenedor para el texto */
 .tarjeta-juego-info {
   padding: 1rem;
 }
 
-/* Estilo para los 3 botones PEQUEÑOS de acción (Edit/Delete) */
+.tarjeta-juego-info h3 {
+  font-size: 1.1rem;
+  color: var(--verde);
+  margin: 0 0 0.75rem 0;
+  text-shadow: 2px 2px var(--negro-pixel);
+}
+
+/* Contenedor de los botones PEQUEÑOS (Editar, Eliminar) */
 .tarjeta-juego-acciones-pequenas {
   display: flex; 
   justify-content: space-between;
-  padding: 0 2rem;
-  gap: 0.6rem; 
-  margin-bottom: 0.6rem; /* Separación del botón grande */
+  padding: 0 1rem;
+  gap: 0.5rem; 
+  margin-bottom: 0.5rem; 
 }
 
 /* Estilo para los botones PEQUEÑOS de acción */
@@ -84,7 +92,7 @@
     background-color: #ffda00; 
 }
 
-/* (Otros estilos se mantienen) */
+/* Estilos de botones Completado/Pendiente (Se mantienen) */
 .btn-completado, .btn-pendiente {
   width: 100%;
   margin-top: 1rem;
@@ -97,4 +105,29 @@
 .btn-pendiente {
   background-color: #555;
   color: #aaa;
+}
+
+/* --- ESTILOS DINÁMICOS DE BORDE (Para el JS) --- */
+.border-completado {
+   border-color: var(--verde) !important;
+}
+
+.border-pendiente {
+   border-color: var(--azul) !important;
+}
+
+.border-completado .tarjeta-juego-imagen {
+border-bottom-color: var(--verde) !important;
+}
+
+.border-pendiente .tarjeta-juego-imagen {
+border-bottom-color: var(--azul) !important;
+}
+
+.border-completado {
+ box-shadow: 6px 6px 0px var(--verde); 
+}
+
+.border-pendiente {
+ box-shadow: 6px 6px 0px var(--azul); 
 }
