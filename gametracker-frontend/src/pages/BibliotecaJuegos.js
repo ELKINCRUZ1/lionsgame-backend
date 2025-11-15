@@ -15,7 +15,7 @@ const BibliotecaJuegos = () => {
     const esModoReseña = new URLSearchParams(location.search).get('modo') === 'reseñas';
 
 
-    // 1. CARGA DE DATOS (Solo al inicio)
+    // 1. CARGA DE DATOS 
     useEffect(() => {
         const cargarJuegos = async () => {
             try {
@@ -29,9 +29,9 @@ const BibliotecaJuegos = () => {
             }
         };
         cargarJuegos();
-    }, []); // <-- Dependencia vacía para que solo cargue al inicio
+    }, []); 
 
-    // --- MANEJADORES DE ESTADO (Pasados al hijo) ---
+    // --- MANEJADORES DE ESTADO  ---
     
     // 1. Eliminar: Filtra el estado y quita el juego.
     const handleJuegoEliminado = (idJuegoEliminado) => {
@@ -101,7 +101,7 @@ const BibliotecaJuegos = () => {
                         <TarjetaJuego 
                             key={juego._id} 
                             juego={juego}
-                            // ¡PASAMOS LOS HANDLERS DE MANIPULACIÓN DIRECTA!
+                           
                             onJuegoEliminado={handleJuegoEliminado} 
                             onJuegoActualizado={handleJuegoActualizado} 
                             colorIndex={index}

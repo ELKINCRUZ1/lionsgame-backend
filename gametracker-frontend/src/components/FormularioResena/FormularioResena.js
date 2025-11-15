@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { crearResena, actualizarResena, getResenaById } from '../../services/resenaService.js'; 
 import './FormularioResena.css'; 
 
-// Valores iniciales (se mantienen)
+// Valores iniciales 
 const valoresIniciales = {
     puntuacion: 5,
     textoReseña: '',
@@ -22,7 +22,7 @@ const FormularioResena = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     // eslint-disable-next-line
-    const [isEditing, setIsEditing] = useState(!!id); // Chequeamos si hay ID
+    const [isEditing, setIsEditing] = useState(!!id); 
 
     // --- EFECTO: Cargar datos existentes si estamos editando ---
     useEffect(() => {
@@ -59,7 +59,7 @@ const FormularioResena = () => {
 
         // Los datos que se envían al backend
         const dataToSend = {
-            // El juegoId no se puede editar, así que lo mandamos si existe
+            // El juegoId no se puede perder al editar                                              
             juegoId: formData.juegoId || null, 
             ...formData,
             puntuacion: Number(formData.puntuacion),
@@ -70,11 +70,11 @@ const FormularioResena = () => {
             if (isEditing) {
                 // MODO EDICIÓN (PUT)
                 await actualizarResena(id, dataToSend); 
-                alert('Reseña actualizada con éxito.'); // <-- MENSAJE DE ÉXITO
+                alert('Reseña actualizada con éxito.'); 
             } else {
                 // MODO CREACIÓN (POST)
                 await crearResena(dataToSend);
-                alert('Reseña creada con éxito.'); // <-- MENSAJE DE ÉXITO
+                alert('Reseña creada con éxito.'); 
             }
             
             // Éxito: Volvemos a la lista de reseñas del juego.
@@ -82,7 +82,7 @@ const FormularioResena = () => {
             navigate(`/resenas/${targetId || 'default'}`); 
 
         } catch (err) {
-            // Si el servidor devuelve un error (ej. campos vacíos), lo atrapamos.
+            
             setError('Error al guardar la reseña. Asegúrate de llenar todos los campos.');
             console.error(err);
         } finally {
@@ -174,7 +174,7 @@ const FormularioResena = () => {
                     </button>
                     <button 
                         type="button" 
-                        onClick={() => navigate(-1)} // Vuelve atrás
+                        onClick={() => navigate(-1)} 
                         className="btn-cancelar"
                     >
                         Cancelar

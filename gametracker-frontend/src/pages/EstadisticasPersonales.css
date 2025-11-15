@@ -92,7 +92,7 @@
 
 /* Estilos específicos para el Panel de Géneros */
 .panel-genero {
-    grid-column: 1 / -1; /* Ocupa todo el ancho en el grid */
+    grid-column: 1 / -1; 
     align-items: flex-start;
     text-align: left;
 }
@@ -100,12 +100,14 @@
 .genero-list {
     width: 100%;
 }
+/* src/pages/EstadisticasPersonales.css */
 
 .genero-item {
     display: grid;
-    grid-template-columns: 100px 50px 1fr;
+    /* FIX: Damos 170px al nombre y 70px al porcentaje para evitar colisión */
+    grid-template-columns: 170px 70px 1fr; 
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem; 
     margin-bottom: 0.5rem;
     width: 100%;
 }
@@ -119,4 +121,6 @@
 .genero-porcentaje {
     font-size: 0.7rem;
     color: var(--amarillo);
+    text-align: right; 
+    min-width: 50px; 
 }

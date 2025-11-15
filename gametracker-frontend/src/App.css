@@ -12,13 +12,13 @@
   --gris-fondo: #222222;
 }
 
-/* Animación del fondo de estrellas */
+/* --- ESTRELLA AQUI  --- */
 @keyframes mover-estrellas {
   from { background-position: 0 0; }
   to { background-position: 10000px -10000px; } 
 }
 
-/* Estilos Globales */
+
 body {
   margin: 0;
   font-family: 'Press Start 2P', cursive; 
@@ -30,21 +30,25 @@ body {
   overflow-x: hidden;
 }
 
-/* Contenedor principal de la App (Centrado) */
+
 .App {
+  
   max-width: 1280px; 
   margin: 0 auto;
+
+  
+  position: relative; 
+  overflow: hidden; 
+  min-height: 100vh;
 }
 
-/* Contenido principal (Donde vive el Grid) */
+
 .app-content {
   padding: 0 2rem; 
-  /* FIX FINAL: Aseguramos que el contenido principal no tenga restricciones */
   display: block; 
-  width: 100%; /* Forzamos ancho completo */
+  width: 100%; 
 }
-
-/* --- ESTILOS DE ELEMENTOS BASE --- */
+ 
 
 h1 {
   font-size: 1.5rem;
@@ -84,30 +88,17 @@ p {
   line-height: 1.5;
 }
 
-/* --- ESTRELLAS FUGAZES --- */
 
-/* Aseguramos que el contenedor principal de la app se posicione */
-.App {
-    position: relative; /* Clave para que la estrella se mueva respecto a la app */
-    overflow: hidden; 
-    min-height: 100vh; 
-}
-/* --- ESTRELLAS FUGAZES --- */
-
-/* La estrella fugaz en sí */
 .shooting-star {
     position: absolute;
     top: -100px; 
     right: -100px; 
-    width: 3px; /* Más ancha */
-    height: 300px; /* Cola más larga */
+    width: 3px; 
+    height: 300px; 
     background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
     opacity: 0; 
-    
-    /* ¡CAMBIO CLAVE! 30 segundos de duración, más lento */
     animation: shoot 30s linear infinite; 
-    
-    z-index: -1; /* <-- ¡Pone la estrella por DEBAJO del Navbar y contenido! */
+    z-index: -1; 
 }
 
 /* Retrasos y duraciones para las tres estrellas */
@@ -120,19 +111,19 @@ p {
 
 .shooting-star:nth-child(3) {
     animation-delay: 15s; 
-    top: -50px;
+    top: -150px;
     right: -300px;
     animation-duration: 40s; 
 }
 
-/* Definición de la animación: Mueve la estrella de arriba-derecha a abajo-izquierda */
+/* Definición de la animación */
 @keyframes shoot {
     0% {
         transform: translate(0, 0) rotate(45deg); 
         opacity: 0;
     }
     5% {
-        opacity: 0.5; /* Se vuelve visible más sutilmente */
+        opacity: 0.5;
     }
     100% {
         transform: translate(-100vw, 100vh) rotate(45deg); 

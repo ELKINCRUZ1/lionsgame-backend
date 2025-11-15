@@ -54,7 +54,7 @@ const FormularioJuego = () => {
         }));
     };
 
-    // 3. Manejador de envío (¡CON EL HACK CORREGIDO!)
+    // 3. Manejador de envío 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -67,24 +67,23 @@ const FormularioJuego = () => {
 
         try {
             if (isEditMode) {
-                // MODO EDICIÓN: Si falla, que muestre el error
+                
                 await actualizarJuego(id, dataToSend);
-                window.location.href = '/videojuegos'; // Redirige en éxito
+                window.location.href = '/videojuegos'; 
 
             } else {
                 // MODO CREACIÓN:
                 try {
                     await crearJuego(dataToSend);
                 } catch (createErr) {
-                    // El "falso negativo": lo ignoramos
+                    
                     console.error("Error 'falso negativo' del backend (ignorado):", createErr);
                 }
-                // ¡AQUÍ ESTÁ EL ARREGLO!
-                // Esta línea AHORA SÍ se ejecutará siempre en modo creación
+                
                 window.location.href = '/videojuegos'; 
             }
         } catch (err) { 
-            // Este catch ahora SÍ solo agarrará errores de ACTUALIZACIÓN
+            
             setError('Error al ACTUALIZAR el juego.');
             console.error("Error de actualización:", err);
             setLoading(false); // Detenemos el loading SÓLO si falla la actualización

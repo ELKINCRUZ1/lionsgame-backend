@@ -1,6 +1,6 @@
 /* src/pages/BibliotecaJuegos/BibliotecaJuegos.css */
 
-/* Estilos del Encabezado (Buscador y Botones) */
+/* Estilos del Encabezado  */
 .biblioteca-header {
     display: flex;
     justify-content: space-between;
@@ -35,9 +35,9 @@
     max-width: 100%;
 }
 
-/* --- EL MOTOR MASONRY (TETRIS) --- */
+/* --- EL MOTOR MASONRY  --- */
 .biblioteca-grid {
-    /* Usamos CSS Columns para el apilamiento irregular */
+    
     columns: 3; 
     column-gap: 2rem; 
     padding: 2rem 1rem;
@@ -48,10 +48,10 @@
 .tarjeta-juego {
     display: inline-block; 
     width: 100%; 
-    margin-bottom: 2rem; /* Espacio entre las tarjetas apiladas */
+    margin-bottom: 2rem; 
 }
 
-/* Media Queries para Tablets y Móviles */
+
 @media (max-width: 1100px) {
     .biblioteca-grid {
         columns: 2;

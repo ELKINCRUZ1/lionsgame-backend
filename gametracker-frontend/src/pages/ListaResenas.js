@@ -17,11 +17,10 @@ const ListaResenas = () => {
         if (!juegoId) return;
         setLoading(true);
         try {
-            // 'response' es el objeto completo: { success: true, data: [...] }
+            
             const response = await getResenasPorJuego(juegoId);
             
-            // --- ¡AQUÍ ESTÁ LA CORRECCIÓN! ---
-            // Guardamos 'response.data', que SÍ es el array.
+
             setResenas(response.data); 
             
             setLoading(false);
@@ -39,9 +38,9 @@ const ListaResenas = () => {
     const handleEliminar = async (resenaId) => {
         if (!window.confirm("¿Seguro que quieres eliminar esta reseña?")) return;
         try {
-            // (Tu lógica de eliminar es perfecta, no se toca)
+            
             await eliminarResena(resenaId);
-            // Actualiza el estado sin recargar la página
+            
             setResenas(resenas.filter(r => r._id !== resenaId));
         } catch (err) {
             setError('Error al eliminar la reseña.');
@@ -52,7 +51,7 @@ const ListaResenas = () => {
     if (error) return <div><p>Error: {error}</p></div>;
 
     return (
-        // Usamos las clases de CSS pixel
+        
         <div className="lista-resenas-container">
             <h1>⭐ Reseñas del Juego ⭐</h1>
             
@@ -70,7 +69,7 @@ const ListaResenas = () => {
                 {resenas.length === 0 ? (
                     <p>No hay reseñas para este juego. ¡Sé el primero!</p>
                 ) : (
-                    // Ahora 'resenas.map' SÍ funcionará
+                    // Ahora 'resenas.map' 
                     resenas.map(resena => (
                         <div key={resena._id} className="resena-card">
                             <h4>Puntuación: {resena.puntuacion} ⭐</h4>
@@ -78,7 +77,7 @@ const ListaResenas = () => {
                             <small>Horas Jugadas: {resena.horasJugadas || 0}</small>
                             <br />
                             
-                            {/* =========== AÑADIMOS EL BOTÓN DE EDITAR AQUÍ ============ */}
+                            {}
                             <div className="resena-acciones">
                                 <button 
                                     onClick={() => navigate(`/editar-resena/${resena._id}`)} 
@@ -93,7 +92,7 @@ const ListaResenas = () => {
                                     🗑️ Eliminar
                                 </button>
                             </div>
-                            {/* ========================================================== */}
+
                         </div>
                     ))
                 )}

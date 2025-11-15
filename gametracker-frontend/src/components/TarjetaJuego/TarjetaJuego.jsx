@@ -24,7 +24,7 @@ const TarjetaJuego = ({ juego, onJuegoEliminado, onJuegoActualizado, colorIndex,
         if (window.confirm(`¿Estás seguro de que quieres eliminar "${juego.titulo}"?`)) {
             try {
                 await eliminarJuego(juego._id);
-                onJuegoEliminado(juego._id); // <-- LLAMA AL HANDLER FILTER (ACTUALIZACIÓN INSTANTÁNEA)
+                onJuegoEliminado(juego._id); 
             } catch (error) {
                 console.error("Error al eliminar el juego", error);
                 alert("Error: No se pudo eliminar el juego. Revisa la consola (F12).");
@@ -36,7 +36,7 @@ const TarjetaJuego = ({ juego, onJuegoEliminado, onJuegoActualizado, colorIndex,
         try {
             const datosUpdate = { completado: !juego.completado };
             const juegoActualizado = await actualizarJuego(juego._id, datosUpdate);
-            onJuegoActualizado(juegoActualizado); // <-- LLAMA AL HANDLER MAP (ACTUALIZACIÓN INSTANTÁNEA)
+            onJuegoActualizado(juegoActualizado); 
         } catch (error) {
             console.error("Error al actualizar estado 'completado'", error);
             alert("Error: No se pudo actualizar el estado del juego. Revisa la consola (F12).");

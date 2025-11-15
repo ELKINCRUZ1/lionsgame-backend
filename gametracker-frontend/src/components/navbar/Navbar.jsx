@@ -7,17 +7,17 @@ const Navbar = () => {
         <nav className="navbar">
             <div className="navbar-container">
                 
-                {/* --- ¡SOLO EL LOGO! --- */}
+                {}
                 <Link to="/" className="navbar-logo-link">
                     <img 
-                        src="/logo.png" // Tu logo.png de la carpeta public
+                        src="/logo.png" 
                         alt="Logo de GameTracker" 
                         className="navbar-logo-img" 
                     />
-                    {/* Quitamos el span de "GAMETRACKER" de aquí */}
+                    {}
                 </Link>
 
-                {/* El menú de navegación (links en cuadritos) */}
+                {}
                 <ul className="nav-menu">
                     <li className="nav-item">
                         <NavLink to="/" className="nav-link" end>

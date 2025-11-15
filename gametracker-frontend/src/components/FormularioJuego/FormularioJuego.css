@@ -52,3 +52,37 @@
 .form-botones .btn-cancelar {
   background-color: var(--fucsia); 
 }
+/* src/components/FormularioJuego/FormularioJuego.css */
+
+.formulario-juego-container {
+    max-width: 700px; /* Reducimos el ancho máximo */
+    margin: 2rem auto; /* Centra el formulario y da margen superior/inferior */
+    padding: 1.5rem; /* Relleno interno para que el contenido no pegue con el borde */
+    border: 4px solid var(--amarillo); /* El borde amarillo de tu imagen */
+    box-shadow: 8px 8px 0px var(--negro-pixel); /* Sombra pixelada */
+    background-color: #333; /* Fondo oscuro del formulario */
+}
+
+/* Puedes ajustar también el formulario interno si es necesario */
+.formulario-juego {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem; /* Espacio entre los grupos de formulario */
+}
+
+/* Asegúrate de que los campos de texto también se ajusten */
+.form-grupo input[type="text"],
+.form-grupo input[type="number"],
+.form-grupo textarea,
+.form-grupo select {
+    width: calc(100% - 10px); /* Ajusta al 100% menos el padding/border */
+    padding: 8px;
+    border: 2px solid var(--negro-pixel);
+    background-color: #555;
+    color: var(--blanco);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    box-sizing: border-box; /* Crucial para que el padding y border no desborden */
+}
+
+/* ... (el resto de tu CSS para el formulario) ... */

@@ -142,7 +142,7 @@ const FormularioJuego = () => {
                         {loading ? 'Guardando...' : (isEditMode ? 'Guardar Cambios' : 'Crear Juego')}
                     </button>
                     
-                    {/* ¡El botón Cancelar ahora usa la misma técnica para evitar errores! */}
+                    {/* EL BOTON ES PILAS EL DE CANCERLAR */}
                     <button 
                         type="button" 
                         onClick={() => window.location.href = '/videojuegos'}

@@ -1,15 +1,15 @@
-import React from 'react'; // <-- Solo necesitamos importar React ahora
+import React from 'react'; 
 import './EstadisticasPersonales.css'; 
 
-// Datos inventados para simular la base de datos
+
 const datosEstadisticos = {
     totalJuegos: 18,
     juegosCompletados: 12,
-    porcentajeCompletado: 66.7, // (12/18)
+    porcentajeCompletado: 66.7, 
     totalHoras: 450,
     plataformaPrincipal: 'PC',
 
-    // Desglose por GÉNERO (porcentajes de tu biblioteca)
+    // Desglose por GÉNERO 
     generosFavoritos: [
         { nombre: 'RPG', porcentaje: 35 },
         { nombre: 'Acción', porcentaje: 25 },
@@ -17,14 +17,14 @@ const datosEstadisticos = {
         { nombre: 'Plataformas', porcentaje: 10 },
         { nombre: 'Otros', porcentaje: 15 },
     ],
-
-    // Puntuación promedio (simulada de las reseñas)
+ 
     puntuacionPromedio: 4.2,
     dificultadPreferida: 'Normal',
 };
 
 
 // Componente para la barra de progreso pixelada
+
 const ProgresoPixel = ({ porcentaje, color }) => (
     <div className="progreso-bar-container">
         <div 
@@ -36,10 +36,9 @@ const ProgresoPixel = ({ porcentaje, color }) => (
 
 
 const EstadisticasPersonales = () => {
-    // Usamos los datos estáticos directamente, sin necesidad de useState.
+    
     const stats = datosEstadisticos; 
-
-    // Ya que no hay 'loading', renderizamos directamente.
+ 
     return (
         <div className="stats-container">
             <h1>📊 Dashboard de LionsGame</h1>

@@ -10,7 +10,7 @@ const TarjetaJuego = ({ juego, onJuegoEliminado, onJuegoActualizado }) => {
 
     // Navega a la página del formulario para editar
     const handleEditar = () => {
-        // Esta ruta debe coincidir con la que definas en App.js
+        
         navigate(`/formulario-juego/${juego._id}`);
     };
 
@@ -24,7 +24,7 @@ const TarjetaJuego = ({ juego, onJuegoEliminado, onJuegoActualizado }) => {
         if (window.confirm(`¿Estás seguro de que quieres eliminar "${juego.titulo}"?`)) {
             try {
                 await eliminarJuego(juego._id);
-                // Avisa al componente padre (BibliotecaJuegos) que este juego fue eliminado
+                
                 onJuegoEliminado(juego._id);
             } catch (error) {
                 console.error("Error al eliminar el juego", error);

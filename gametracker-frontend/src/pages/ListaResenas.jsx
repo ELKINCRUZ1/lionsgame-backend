@@ -16,10 +16,10 @@ const ListaResenas = () => {
         if (!juegoId) return;
         setLoading(true);
         try {
-            // 'response' es el objeto completo: { success: true, data: [...] }
+           
             const response = await getResenasPorJuego(juegoId);
             
-            // --- ¡AQUÍ ESTÁ LA CORRECCIÓN de 'resenas.map'! ---
+           
             setResenas(response.data); 
             
             setLoading(false);
@@ -47,13 +47,13 @@ const ListaResenas = () => {
     if (error) return <div><p>Error: {error}</p></div>;
 
     return (
-        // Usamos las clases de CSS pixel
+        
         <div className="lista-resenas-container">
             <h1>⭐ Reseñas del Juego ⭐</h1>
             
             <div className="resenas-botones">
                 <Link to={`/agregar-resena/${juegoId}`}>
-                    {/* (Nota: Aún no hemos creado esta ruta en App.js) */}
+                    {}
                     <button>➕ Escribir Nueva Reseña</button>
                 </Link>
                 
@@ -66,7 +66,7 @@ const ListaResenas = () => {
                 {resenas.length === 0 ? (
                     <p>No hay reseñas para este juego. ¡Sé el primero!</p>
                 ) : (
-                    // Ahora 'resenas.map' SÍ funcionará
+                   
                     resenas.map(resena => (
                         <div key={resena._id} className="resena-card">
                             <h4>Puntuación: {resena.puntuacion} ⭐</h4>
