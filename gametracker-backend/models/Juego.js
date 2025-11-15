@@ -30,7 +30,7 @@ const JuegoSchema = new mongoose.Schema({
     },
     completado: {
         type: Boolean,
-        default: false // Por defecto, el juego no está completado
+        default: false 
     },
     fechaCreacion: {  
         type: Date,

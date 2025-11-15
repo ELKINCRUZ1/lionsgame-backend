@@ -1,5 +1,4 @@
-const Juego = require('../models/Juego'); // Importa el modelo
-
+const Juego = require('../models/Juego'); 
 // 1. OBTENER TODOS (GET /api/juegos)
 const obtenerTodosLosJuegos = async (req, res) => {
     try {
@@ -39,10 +38,10 @@ const obtenerJuego = async (req, res) => {
 // 4. ACTUALIZAR JUEGO (PUT /api/juegos/:id)
 const actualizarJuego = async (req, res) => {
     try {
-        // { new: true } asegura que devuelve la versión actualizada
+        // { new: true } 
         const juegoActualizado = await Juego.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
-            runValidators: true // Ejecuta las validaciones del modelo antes de actualizar
+            runValidators: true 
         });
         if (!juegoActualizado) {
             return res.status(404).json({ success: false, error: 'Juego no encontrado para actualizar.' });
@@ -66,8 +65,7 @@ const eliminarJuego = async (req, res) => {
         res.status(500).json({ success: false, error: error.message });
     }
 };
-
-// Exportar todas las funciones
+// Exporta las funciones del controlador
 module.exports = {
     obtenerTodosLosJuegos,
     crearJuego,

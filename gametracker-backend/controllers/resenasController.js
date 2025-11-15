@@ -3,8 +3,7 @@ const Resena = require('../models/Resena');
 // 1. OBTENER TODAS LAS RESEÑAS (GET /api/reseñas)
 const obtenerTodasLasResenas = async (req, res) => {
     try {
-        // Opcional: usar .populate('juegoId') si quieres traer toda la info del juego
-        const resenas = await Resena.find({}); t6
+        const resenas = await Resena.find({});
         res.status(200).json({ success: true, data: resenas });
     } catch (error) {
         res.status(500).json({ success: false, error: 'Error al obtener las reseñas.' });
@@ -12,11 +11,10 @@ const obtenerTodasLasResenas = async (req, res) => {
 };
 
 // 2. OBTENER RESEÑAS POR ID DE JUEGO (GET /api/reseñas/juego/:juegoId)
-// Esta función utiliza el campo 'juegoId' de la reseña para encontrar la colección.
 const obtenerResenasPorJuego = async (req, res) => {
     try {
         // Busca reseñas donde el campo juegoId sea igual al parámetro en la URL
-        const resenas = await Resena.find({ juegoId: req.params.juegoId }); //
+        const resenas = await Resena.find({ juegoId: req.params.juegoId }); 
 
         if (resenas.length === 0) {
             return res.status(200).json({ success: true, message: 'No se encontraron reseñas para este juego.', data: [] });
@@ -43,7 +41,7 @@ const crearResena = async (req, res) => {
 const actualizarResena = async (req, res) => {
     try {
         const resenaActualizada = await Resena.findByIdAndUpdate(req.params.id, req.body, {
-            new: true, // Devuelve el documento modificado
+            new: true, 
             runValidators: true // Ejecuta las validaciones del esquema (min/max, required, etc.)
         });
 
@@ -64,7 +62,7 @@ const eliminarResena = async (req, res) => {
         if (!resenaEliminada) {
             return res.status(404).json({ success: false, error: 'Reseña no encontrada para eliminar.' });
         }
-        // Estado 204 No Content, pero con un mensaje de éxito
+        // Estado 200 de éxito
         res.status(200).json({ success: true, message: 'Reseña eliminada con éxito.' });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
