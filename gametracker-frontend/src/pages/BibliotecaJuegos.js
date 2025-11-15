@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getTodosLosJuegos, eliminarJuego, actualizarJuego } from '../services/juegoServices.js'; // Asegúrate que la 's' sea correcta
+// Solo importamos getTodosLosJuegos (las otras funciones las usa TarjetaJuego)
+import { getTodosLosJuegos } from '../services/juegoServices.js'; 
 import TarjetaJuego from '../components/TarjetaJuego/TarjetaJuego';
-import './BibliotecaJuegos.css'; // El CSS que hicimos para el grid
+import './BibliotecaJuegos.css'; // El CSS que hicimos para la cuadrícula
 
 const BibliotecaJuegos = () => {
+    // ESTADOS (El estado es lo que maneja lo que se ve en la página)
     const [juegos, setJuegos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    // Cargar todos los juegos cuando el componente se monta
+    // 1. CARGA DE DATOS (Se ejecuta una sola vez al inicio)
     useEffect(() => {
         const cargarJuegos = async () => {
             try {
                 setLoading(true);
-                const response = await getTodosLosJuegos();
-                setJuegos(response.data); // Arreglo para el error .map
+                // La API devuelve { data: [...] }
+                const response = await getTodosLosJuegos(); 
+                setJuegos(response.data); // <-- FIX: Extraemos el array 'data'
             } catch (err) {
                 setError('Error al cargar la colección de juegos. El backend está apagado?');
             } finally {
@@ -24,18 +27,18 @@ const BibliotecaJuegos = () => {
             }
         };
         cargarJuegos();
-    }, []);
+    }, []); // La dependencia vacía ([]) asegura que cargue solo al inicio
 
-    // --- FUNCIONES PARA LOS HIJOS (Tarjetas) ---
-
-    // Quita el juego eliminado de la lista (el 'state')
+    // 2. FUNCIONES DE MANEJO DE ESTADO (Pasadas al componente TarjetaJuego)
+    
+    // Quita el juego eliminado de la lista
     const handleJuegoEliminado = (idJuegoEliminado) => {
         setJuegos(juegosActuales => 
             juegosActuales.filter(juego => juego._id !== idJuegoEliminado)
         );
     };
 
-    // Actualiza la lista cuando un juego cambia (ej. 'completado')
+    // Actualiza la tarjeta cuando cambia el estado (Completado/Pendiente)
     const handleJuegoActualizado = (juegoActualizado) => {
         setJuegos(juegosActuales => 
             juegosActuales.map(juego => 
@@ -50,20 +53,23 @@ const BibliotecaJuegos = () => {
     if (error) return <div><p>{error}</p></div>;
 
     return (
-        <div className="biblioteca-container">
+        <>
             <h1>🎮 Mi Colección ({juegos.length}) 🎮</h1>
             
+            {/* Botón para navegar al formulario de creación */}
             <button 
                 onClick={() => navigate('/formulario-juego')}
-                className="btn-agregar-juego" // Estilo verde pixel
+                className="btn-agregar-juego" 
             >
                 + Agregar Nuevo Juego
             </button>
 
+            {/* Este div es el que tiene el CSS de la cuadrícula */}
             <div className="biblioteca-grid">
                 {juegos.length === 0 ? (
                     <p>No tienes juegos en tu biblioteca. ¡Agrega uno!</p>
                 ) : (
+                    // Mapea y dibuja las tarjetas
                     juegos.map(juego => (
                         <TarjetaJuego 
                             key={juego._id} 
@@ -74,7 +80,7 @@ const BibliotecaJuegos = () => {
                     ))
                 )}
             </div>
-        </div>
+        </>
     );
 };
 

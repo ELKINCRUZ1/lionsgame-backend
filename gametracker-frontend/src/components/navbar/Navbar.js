@@ -1,51 +1,52 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import './Navbar.css'; // El CSS pixel
+import './Navbar.css'; 
 
 const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbar-container">
                 
-                {/* --- ¡SOLO EL LOGO! --- */}
+                {/* --- ¡AQUÍ ESTÁ EL TEXTO LIONSGAME DE VUELTA! --- */}
                 <Link to="/" className="navbar-logo-link">
                     <img 
-                        src="/logo.png" // Tu logo.png de la carpeta public
+                        src="/logo.png" 
                         alt="Logo de LionsGame" 
                         className="navbar-logo-img" 
                     />
-                    {/* --- ¡NOMBRE CAMBIADO! --- */}
-                    <span className="navbar-logo-text">LionsGame</span>
+                    <span className="navbar-logo-text">LionsGame</span> {/* <-- ¡TEXTO AQUÍ! */}
                 </Link>
 
-                {/* --- ¡MENÚ CORREGIDO Y LÓGICO! --- */}
+                {/* El menú de navegación (links en cuadritos) */}
                 <ul className="nav-menu">
-                    
-                    {/* 1. Link a INICIO */}
                     <li className="nav-item">
                         <NavLink to="/" className="nav-link" end>
                             Inicio
                         </NavLink>
                     </li>
-                    
-                    {/* 2. Link a VIDEOJUEGOS (Mi Colección) */}
                     <li className="nav-item">
                         <NavLink to="/videojuegos" className="nav-link">
                             Videojuegos
                         </NavLink>
                     </li>
-                    
-                    {/* 3. Link a AGREGAR JUEGO (Formulario) */}
                     <li className="nav-item">
                         <NavLink to="/formulario-juego" className="nav-link">
                             Agregar juego
                         </NavLink>
                     </li>
-
-                    {/* 4. ¡EL NUEVO LINK RECOMENDADO! */}
                     <li className="nav-item">
                         <NavLink to="/estadisticas" className="nav-link">
                             Estadísticas
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/videojuegos" className="nav-link">
+                            Reseñas
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/videojuegos" className="nav-link">
+                            Agregar reseñas
                         </NavLink>
                     </li>
                 </ul>

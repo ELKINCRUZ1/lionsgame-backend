@@ -1,16 +1,14 @@
-/* ¡Este CSS es casi idéntico al de FormularioJuego.css! 
-  Así mantenemos el estilo pixelado.
-*/
+/* src/components/FormularioResena/FormularioResena.css */
 
 .formulario-resena-container {
     width: 100%;
-    max-width: 800px; /* Hacemos el formulario un poco más ancho */
+    max-width: 800px;
     margin: 0 auto;
 }
 
 .formulario-resena {
-    background-color: #333; /* Fondo gris oscuro */
-    border: 4px solid var(--amarillo); /* Borde de tu paleta */
+    background-color: #333; 
+    border: 4px solid var(--amarillo);
     padding: 1.5rem;
     margin-top: 2rem;
     box-shadow: 6px 6px 0px var(--negro-pixel);
@@ -24,46 +22,53 @@
     margin-bottom: 2rem;
 }
 
-/* Contenedor para cada par "label + input" */
+/* Contenedor de la línea */
 .form-grupo {
     margin-bottom: 1rem;
-    display: flex; /* Ordena los elementos */
-    flex-direction: column; /* Pone el label encima del input */
+    display: flex; 
+    flex-direction: column; 
 }
 
+/* Estilo de la etiqueta del campo (¡LIMPIO Y FINAL!) */
 .form-grupo label {
-    font-size: 0.8rem;
+    font-size: 0.8rem; 
     color: var(--blanco);
-    margin-bottom: 0.5rem; /* Espacio entre label e input */
+    margin-bottom: 0.5rem; 
+    
+    display: block; 
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 1px 1px 0px #000; 
 }
+
 
 /* Estilo para los inputs de texto y área de texto */
 .form-grupo input[type="number"],
 .form-grupo textarea,
 .form-grupo select {
-    font-family: 'Press Start 2P', cursive; /* ¡Fuente pixel! */
-    background-color: #FFFFFF;     /* Fondo blanco */
-    color: var(--negro-pixel);   /* ¡Letras negras! */
+    font-family: 'Press Start 2P', cursive;
+    background-color: #FFFFFF;
+    color: var(--negro-pixel);
     border: 2px solid var(--blanco);
     padding: 0.5rem;
     border-radius: 0; 
     font-size: 0.75rem;
-    -webkit-appearance: none; /* Quita estilos feos de iOS */
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .form-grupo textarea {
-    font-family: 'Helvetica Neue', sans-serif; /* Fuente legible para texto largo */
+    font-family: 'Helvetica Neue', sans-serif; 
     font-size: 1rem;
 }
 
 /* Estilo para los botones */
 .form-botones {
     display: flex;
-    gap: 1rem; /* Espacio entre botones */
+    gap: 1rem; 
     margin-top: 2rem;
 }
 .form-botones button {
-    width: 100%; /* Ocupan todo el espacio */
+    width: 100%;
 }
 
 /* Mensaje de error */

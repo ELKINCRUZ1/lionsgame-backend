@@ -25,66 +25,37 @@
 }
 
 .navbar-logo-img {
-    height: 50px; /* Logo más grande */
+    height: 50px; 
     width: auto;
     image-rendering: pixelated;
     filter: drop-shadow(2px 2px var(--negro-pixel)); 
 }
 
-/* --- ESTILO "SÁDICO" PARA EL TEXTO DEL LOGO --- */
-.navbar-logo-text {
-    font-family: 'Press Start 2P', cursive; /* Tu fuente pixel art */
-    font-size: 1.5rem; 
-    color: #cc0000; /* Rojo sangre oscuro */
-    text-shadow: 
-        1px 1px 0px #800000,
-        2px 2px 0px #a00000,   
-        3px 3px 0px #ff0000,   /* Efecto de desajuste/glitch */
-        -1px -1px 0px #400000, 
-        -2px 0px 0px #800000;
-    
-    letter-spacing: 2px;
-    line-height: 1;      
-    white-space: nowrap; 
-    filter: drop-shadow(4px 4px 0px var(--negro-pixel)); 
-}
-/* --- --- */
-
-
-/* Lista de links (ul) */
+/* Lista de links (ul) - FIX DE CLIPPING */
 .nav-menu {
     display: flex;
-    gap: 1rem; 
+    /* Reducimos el gap para que el Navbar quepa */
+    gap: 0.5rem; 
     list-style: none;
     align-items: center;
+    flex-shrink: 1; 
+    padding: 0;
+    margin: 0;
 }
 
-.nav-item {
-    /* (No necesita estilo) */
-}
-
-/* --- ESTILOS PARA LOS "CUADRITOS" DEL NAVLINK --- */
+/* FIX: Reducimos el tamaño de la letra de los botones */
 .nav-link {
     font-family: 'Press Start 2P', cursive;
-    
-    /* ¡Color Verde por defecto! */
     background-color: var(--verde); 
-    color: var(--negro-pixel); /* Texto negro */
-    
+    color: var(--negro-pixel); 
     border: 3px solid var(--negro-pixel);
     box-shadow: 3px 3px 0px var(--negro-pixel);
-    
     border-radius: 0; 
-    padding: 0.75rem 1rem;
-    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem; /* Padding MUY reducido */
+    font-size: 0.65rem; /* Letra MUY pequeña */
     text-decoration: none;
-    
+    white-space: nowrap; /* Evita que el texto se rompa */
     transition: all 0.05s linear;
-}
-
-.nav-link:hover {
-    background-color: #32a800; 
-    color: var(--negro-pixel);
 }
 
 .nav-link:active {
@@ -92,8 +63,6 @@
     transform: translate(3px, 3px);
 }
 
-/* Cuando un link esté ACTIVO (en esa página), 
-   se pondrá de color AMARILLO */
 .nav-link.active {
     background-color: var(--amarillo); 
     color: var(--negro-pixel); 

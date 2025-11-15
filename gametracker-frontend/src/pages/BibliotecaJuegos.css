@@ -1,6 +1,43 @@
-/* src/pages/BibliotecaJuegos.css */
+/* src/pages/BibliotecaJuegos/BibliotecaJuegos.css */
+
+.biblioteca-juegos-container {
+    padding: 2rem 0; 
+}
+
+.biblioteca-juegos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+}
+
+/* --- ¡EL FIX FINAL! ESTILO MASONRY (TETRIS) --- */
 .biblioteca-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem; 
+    /* Usamos CSS Columns para lograr el efecto Masonry */
+    columns: 3; 
+    column-gap: 2rem; /* El espacio entre las columnas */
+    padding: 2rem 1rem;
+    width: 100%;
+}
+
+/* Regla para que cada tarjeta se apile verticalmente dentro de su columna */
+.tarjeta-juego {
+    display: inline-block; /* Crucial para el apilamiento Masonry */
+    width: 100%; /* Ocupa el ancho completo de su columna */
+    margin-bottom: 2rem; /* Espacio entre las tarjetas en la misma columna */
+}
+
+/* Para tablets: 2 columnas */
+@media (max-width: 1100px) {
+    .biblioteca-grid {
+        columns: 2;
+    }
+}
+
+/* Para móvil: 1 columna */
+@media (max-width: 600px) {
+    .biblioteca-grid {
+        columns: 1;
+    }
 }

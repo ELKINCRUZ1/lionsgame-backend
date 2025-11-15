@@ -16,7 +16,6 @@ const initialFormState = {
 
 const FormularioJuego = () => {
     const { id } = useParams(); 
-    // Mantenemos navigate por si lo usamos en el futuro
     const navigate = useNavigate(); 
     
     const [formData, setFormData] = useState(initialFormState);
@@ -55,7 +54,7 @@ const FormularioJuego = () => {
         }));
     };
 
-    // 3. Manejador de envío (El "Hack" para el bug fantasma)
+    // 3. Manejador de envío (La lógica de guardar)
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -69,15 +68,16 @@ const FormularioJuego = () => {
         try {
             if (isEditMode) {
                 await actualizarJuego(id, dataToSend);
-                window.location.href = '/videojuegos'; 
             } else {
                 try {
                     await crearJuego(dataToSend);
                 } catch (createErr) {
                     console.error("Error 'falso negativo' del backend (ignorado):", createErr);
                 }
-                window.location.href = '/videojuegos'; 
             }
+            // ¡Esta línea se encarga del redireccionamiento para ambos casos!
+            window.location.href = '/videojuegos'; 
+            
         } catch (err) { 
             setError('Error al ACTUALIZAR el juego.');
             console.error("Error de actualización:", err);
@@ -103,7 +103,7 @@ const FormularioJuego = () => {
                     <label htmlFor="plataforma">Plataforma:</label>
                     <input type="text" id="plataforma" name="plataforma" value={formData.plataforma} onChange={handleChange} required placeholder="Ej: PS5, PC, Switch" />
                 </div>
-                {/* AÑO */}
+                {/* AÑO DE LANZAMIENTO */}
                 <div className="form-grupo">
                     <label htmlFor="añoLanzamiento">Año de Lanzamiento:</label>
                     <input type="number" id="añoLanzamiento" name="añoLanzamiento" value={formData.añoLanzamiento} onChange={handleChange} placeholder="Ej: 2022" />
@@ -123,7 +123,7 @@ const FormularioJuego = () => {
                     <label htmlFor="descripcion">Descripción:</label>
                     <textarea id="descripcion" name="descripcion" value={formData.descripcion} onChange={handleChange} rows="4" placeholder="Breve resumen del juego."></textarea>
                 </div>
-                {/* IMAGEN */}
+                {/* IMAGEN PORTADA (URL) */}
                 <div className="form-grupo">
                     <label htmlFor="imagenPortada">URL Imagen de Portada:</label>
                     <input type="url" id="imagenPortada" name="imagenPortada" value={formData.imagenPortada} onChange={handleChange} placeholder="https://ejemplo.com/portada.jpg" />
@@ -142,8 +142,7 @@ const FormularioJuego = () => {
                         {loading ? 'Guardando...' : (isEditMode ? 'Guardar Cambios' : 'Crear Juego')}
                     </button>
                     
-                    {/* --- ¡AQUÍ ESTÁ LA CORRECCIÓN! --- */}
-                    {/* Cambiamos 'navigate' por 'window.location.href' */}
+                    {/* ¡El botón Cancelar ahora usa la misma técnica para evitar errores! */}
                     <button 
                         type="button" 
                         onClick={() => window.location.href = '/videojuegos'}
